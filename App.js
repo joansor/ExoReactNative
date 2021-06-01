@@ -1,21 +1,30 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import * as React from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import ScreenPageConnexion from "./Screen/ScreenPageConnexion";
+import ScreenPageInscription from './Screen/ScreenPageInscription';
+import ScreenPageAccueil from './Screen/ScreenPageAccueil';
+import ScreenDashboard from './Screen/ScreenDashboard';
+import { Provider } from "react-redux";
+import Store from './Store/ConfigStore';
 
-export default function App() {
+const Stack = createStackNavigator();
+
+const App = () => {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <Provider store={Store}>
+    <NavigationContainer>
+      <Stack.Navigator>
+      <Stack.Screen name="Accueil" component={ScreenPageAccueil}/>
+        <Stack.Screen name="ConnexionScreen" component={ScreenPageConnexion}/>
+        <Stack.Screen name="InscriptionScreen" component={ScreenPageInscription}/>
+        <Stack.Screen name="Dashboard" component={ScreenDashboard}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+    </Provider>
   );
-}
+};
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+export default App;
+
