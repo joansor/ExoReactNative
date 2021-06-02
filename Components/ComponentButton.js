@@ -6,14 +6,14 @@ export default class ComponentButton extends React.Component {
    
   }
   render() {
-    const { title, changePage } = this.props;
+    const { title, eventBtn } = this.props;
    
     return (
       <View style={style.button}>
         <Button
           title={title}
           color="#fff"
-          onPress={changePage}
+          onPress={eventBtn}
         />
       </View>
     );

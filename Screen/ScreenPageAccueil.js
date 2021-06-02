@@ -14,8 +14,8 @@ export default class ScreenPageAccueil extends React.Component {
     return (
       <View style={styles.container}>
         <ComponentTitle title="Connexion/Inscription"/>
-        <ComponentButton title="Connexion" changePage={()=> navigate('ConnexionScreen')}/>
-        <ComponentButton title="Inscription" changePage={()=> navigate('InscriptionScreen')}/>
+        <ComponentButton title="Connexion" eventBtn={()=> navigate('ConnexionScreen')}/>
+        <ComponentButton title="Inscription" eventBtn={()=> navigate('InscriptionScreen')}/>
         <StatusBar style="auto"/>
       </View>
     );
