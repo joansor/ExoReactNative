@@ -3,6 +3,7 @@ import React from "react";
 import { StyleSheet, View } from "react-native";
 import  ComponentTitle  from "../Components/ComponentTitle";
 import  ComponentButton  from "../Components/ComponentButton";
+import * as SQLite from 'expo-sqlite';
 
 
 export default class ScreenPageAccueil extends React.Component {
@@ -10,6 +11,11 @@ export default class ScreenPageAccueil extends React.Component {
     super(props);
   }
   render() {
+    
+    const db = SQLite.openDatabase("user.db");
+    db.transaction(tx => { tx.executeSql("create table if not exists user (id integer primary key not null, name text, mail text, mdp text);");})
+   
+
     const {navigate} = this.props.navigation;
     return (
       <View style={styles.container}>

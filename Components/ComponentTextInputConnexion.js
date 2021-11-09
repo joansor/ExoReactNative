@@ -3,6 +3,7 @@ import { StyleSheet, TextInput , View } from 'react-native';
 export default class ComponentTextInputConnexion extends React.Component {
   constructor(props) {
     super(props);
+
   }
   render() {
     const { email,password } = this.props;

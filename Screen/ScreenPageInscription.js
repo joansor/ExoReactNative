@@ -6,6 +6,7 @@ import { StyleSheet, View, Text, TouchableOpacity, Alert } from "react-native";
 import ComponentButton from "../Components/ComponentButton";
 import { emailValid, passwordValid, nameValid } from "../Tools/fonctions";
 import { connect } from "react-redux";
+//import * as SQLite from 'expo-sqlite';
 
 class ScreenPageInscription extends React.Component {
   constructor(props) {
@@ -32,28 +33,73 @@ class ScreenPageInscription extends React.Component {
         console.log("Tous les champs ne sont pas rempli");
     }
   }
-  AddUser() {
-    console.log("click inscription");
+  AddUser(){
     const emailError = emailValid(this.state.email);
     const passError = passwordValid(this.state.password);
     const nameError = nameValid(this.state.nom);
-    let user = [];
+    //let user = [];
+  //  const db = SQLite.openDatabase("user.db");
+    const formData = new FormData();
+    formData.append("name",this.state.nom);
+    formData.append("mail",this.state.email);
+    formData.append("password",this.state.password);
+
+
     if (emailError || passError || nameError) {
       alert();
       return;
     } else {
-      const action = {
-        type: "ADD_USER",
-        value: {
-          name: this.state.nom,
-          email: this.state.email,
-          password: this.state.password,
-        },
-      };
-      this.props.dispatch(action);
+
+      fetch('http://jdevalik.fr/api/insertuser.php',{
+        method:'POST',
+        body: formData,
+        headers:{
+          "Content-Type": "multipart/form-data"
+        }
+      })
+        .then((response)=> response.json())
+          .then((json)=>{
+            if(json == false){
+              Alert.alertEmail(
+                'Erreur',
+                'L\'e-mail saisi existe déjà.Veuillez saisir une autre adresse mail!',
+                [
+                    {text: 'OK', onPress:()=> console.log('OK Pressed')},
+
+                ],
+              )
+            }
+          })
+
+      //SQLITE
+      // db.transaction(tx =>{tx.executeSql("insert into user (name,mail,mdp) values (?,?,?)",[this.state.nom,this.state.email,this.state.password]);})
+      // console.log(db);
       this.props.navigation.navigate("ConnexionScreen");
     }
   }
+  //REDUX
+  // AddUser() {
+  //   console.log("click inscription");
+  //   const emailError = emailValid(this.state.email);
+  //   const passError = passwordValid(this.state.password);
+  //   const nameError = nameValid(this.state.nom);
+  //   let user = [];
+  //   if (emailError || passError || nameError) {
+  //     alert();
+  //     return;
+  //   } else {
+  //     const action = {
+  //       type: "ADD_USER",
+  //       value: {
+  //         name: this.state.nom,
+  //         email: this.state.email,
+  //         password: this.state.password,
+  //       },
+  //     };
+  //     this.props.dispatch(action);
+  //     this.props.navigation.navigate("ConnexionScreen");
+  //   }
+  // }
   alert(){
     Alert.alert("Erreur", "Les champs sont incorrect", [
       { text: "OK", onPress: () => console.log("OK Pressed") },

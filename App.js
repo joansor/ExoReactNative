@@ -6,6 +6,7 @@ import ScreenPageConnexion from "./Screen/ScreenPageConnexion";
 import ScreenPageInscription from './Screen/ScreenPageInscription';
 import ScreenPageAccueil from './Screen/ScreenPageAccueil';
 import ScreenDashboard from './Screen/ScreenDashboard';
+import ScreenCamera from './Screen/ScreenCamera';
 import { Provider } from "react-redux";
 import Store from './Store/ConfigStore';
 
@@ -17,9 +18,10 @@ const App = () => {
     <NavigationContainer>
       <Stack.Navigator>
       <Stack.Screen name="Accueil" component={ScreenPageAccueil}/>
-        <Stack.Screen name="ConnexionScreen" component={ScreenPageConnexion}/>
-        <Stack.Screen name="InscriptionScreen" component={ScreenPageInscription}/>
-        <Stack.Screen name="Dashboard" component={ScreenDashboard}/>
+      <Stack.Screen name="ConnexionScreen" component={ScreenPageConnexion}/>
+      <Stack.Screen name="InscriptionScreen" component={ScreenPageInscription}/>
+      <Stack.Screen name="Dashboard" component={ScreenDashboard}/>
+      <Stack.Screen name="Picture" component={ScreenCamera}/>
       </Stack.Navigator>
     </NavigationContainer>
     </Provider>
